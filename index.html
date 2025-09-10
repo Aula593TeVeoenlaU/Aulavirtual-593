@@ -78,6 +78,7 @@
             border-radius: 8px;
             overflow: hidden;
             transition: transform 0.3s;
+            cursor: pointer; /* Agregado para los botones de bienvenida */
         }
         .card:hover {
             transform: translateY(-5px);
@@ -90,6 +91,7 @@
         }
         .card-content {
             padding: 1rem;
+            text-align: center;
         }
         .card-content h3 {
             margin-top: 0;
@@ -215,6 +217,28 @@
         </div>
     </div>
 
+    <div id="welcome-section" class="login-container" style="display: none;">
+        <div class="login-box">
+            <h1>¡Bienvenido a Preuniversitario 593!</h1>
+            <p>Selecciona el tipo de simulador que deseas practicar:</p>
+            <div class="card-container" style="margin-top: 2rem;">
+                <div class="card" onclick="showAptitudes()">
+                    <img src="593imagenes/simulador_aptitudes.jpg" alt="Simuladores de Aptitudes">
+                    <div class="card-content">
+                        <h3>Simuladores de Aptitudes</h3>
+                    </div>
+                </div>
+                <div class="card" onclick="showConocimientos()">
+                    <img src="593imagenes/simulador_conocimientos.jpg" alt="Simuladores de Conocimientos">
+                    <div class="card-content">
+                        <h3>Simuladores de Conocimientos</h3>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="back-link" onclick="logout()">Cerrar Sesión</a>
+        </div>
+    </div>
+
     <div id="student-section" style="display: none;">
         <div class="header">
             <h1>Simuladores de Admisión 🎓</h1>
@@ -316,14 +340,14 @@
             </section>
             
             <section id="grande" class="section">
-                <h2>📝 Simulador Completo (50 ejercicios)</h2>
+                <h2>📝 Simulador Completo (60 ejercicios)</h2>
                 <p>¡El simulacro más grande para prepararte para el examen real! Incluye todas las áreas de aptitud.</p>
                 <div class="card-container">
                     <div class="card">
                         <img src="593imagenes/simulador_grande.jpg" alt="Simulador Completo">
                         <div class="card-content">
                             <h3>Simulador de Admisión Completo</h3>
-                            <p>50 preguntas que combinan razonamiento numérico, lógico, verbal y abstracto.</p>
+                            <p>60 preguntas que combinan razonamiento numérico, lógico, verbal y abstracto.</p>
                             <a href="#" style="color: #e74c3c; font-weight: bold;">Iniciar Examen</a>
                         </div>
                     </div>
@@ -335,78 +359,116 @@
         </div>
     </div>
 
+    <div id="conocimientos-section" style="display: none;">
+        <div class="header">
+            <h1>Simuladores de Conocimientos 📖</h1>
+            <p>Aquí estarán los simuladores enfocados en materias específicas. ¡Pronto disponibles!</p>
+        </div>
+        <div class="container">
+            <section class="section">
+                <h2>Próximamente...</h2>
+                <p>Estamos trabajando para traerles los mejores simuladores de conocimientos para su preparación.</p>
+            </section>
+            <a href="#" class="back-link" onclick="showWelcome()">Regresar</a>
+        </div>
+        <div class="footer">
+            <p>&copy; 2025 Preuniversitario 593. Todos los derechos reservados.</p>
+        </div>
+    </div>
+
     <script type="module">
-      // Importa las funciones necesarias de los SDK de Firebase
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-      import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 
-      // TU CONFIGURACIÓN DE FIREBASE (¡YA INTEGRADA!)
-      const firebaseConfig = {
-        apiKey: "AIzaSyB045iUiFGuXxbagFDOTuw__2Yx-eUWDgo",
-        authDomain: "aulavirtual-593.firebaseapp.com",
-        projectId: "aulavirtual-593",
-        storageBucket: "aulavirtual-593.firebasestorage.app",
-        messagingSenderId: "332297166827",
-        appId: "1:332297166827:web:4cd3d7f2c8e87134efc3ae"
-      };
+        // TU CONFIGURACIÓN DE FIREBASE
+        const firebaseConfig = {
+            apiKey: "AIzaSyB045iUiFGuXxbagFDOTuw__2Yx-eUWDgo",
+            authDomain: "aulavirtual-593.firebaseapp.com",
+            projectId: "aulavirtual-593",
+            storageBucket: "aulavirtual-593.firebasestorage.app",
+            messagingSenderId: "332297166827",
+            appId: "1:332297166827:web:4cd3d7f2c8e87134efc3ae"
+        };
 
-      // Inicializa Firebase
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app); // Obtiene la instancia de autenticación para usarla en los métodos
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
-      async function checkCredentials() {
-          const usernameInput = document.getElementById('username').value;
-          const passwordInput = document.getElementById('password').value;
-          const messageElement = document.getElementById('message');
-          const loginSection = document.getElementById('login-section');
-          const studentSection = document.getElementById('student-section');
-          
-          messageElement.textContent = 'Verificando...'; // Muestra un mensaje mientras se verifica
+        const loginSection = document.getElementById('login-section');
+        const welcomeSection = document.getElementById('welcome-section');
+        const studentSection = document.getElementById('student-section');
+        const conocimientosSection = document.getElementById('conocimientos-section');
+        const messageElement = document.getElementById('message');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
 
-          try {
-              // Firebase usa correo electrónico, así que lo formateamos con un dominio inventado
-             const email = `${usernameInput}@593teveoenlau.ec`; // Formatea como correo para Firebase, usando tu dominio real 
-              await signInWithEmailAndPassword(auth, email, passwordInput); // Intenta iniciar sesión
+        // Función para verificar el estado de la autenticación
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // El usuario está logueado
+                showWelcome();
+            } else {
+                // El usuario no está logueado
+                logout();
+            }
+        });
 
-              messageElement.textContent = 'Acceso exitoso. Redirigiendo...';
-              loginSection.style.display = 'none'; // Oculta la sección de login
-              studentSection.style.display = 'block'; // Muestra la sección de estudiante
-          } catch (error) {
-              console.error('Error de autenticación:', error);
-              // Mensajes de error más amigables para el usuario
-              let errorMessage = "Usuario o clave incorrecta. Inténtalo de nuevo.";
-              if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-                  errorMessage = "Usuario o clave incorrecta. Inténtalo de nuevo.";
-              } else if (error.code === 'auth/invalid-email') {
-                  errorMessage = "Formato de usuario inválido. Por favor, revisa tu usuario.";
-              }
-              messageElement.textContent = errorMessage; // Muestra el error al usuario
-          }
-      }
+        async function checkCredentials() {
+            messageElement.textContent = 'Verificando...';
+            try {
+                const email = `${usernameInput.value}@593teveoenlau.ec`;
+                await signInWithEmailAndPassword(auth, email, passwordInput.value);
+                messageElement.textContent = ''; // Limpiar mensaje al tener éxito
+            } catch (error) {
+                console.error('Error de autenticación:', error);
+                let errorMessage = "Usuario o clave incorrecta. Inténtalo de nuevo.";
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                    errorMessage = "Usuario o clave incorrecta. Inténtalo de nuevo.";
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = "Formato de usuario inválido. Por favor, revisa tu usuario.";
+                }
+                messageElement.textContent = errorMessage;
+            }
+        }
 
-      function logout() {
-          const loginSection = document.getElementById('login-section');
-          const studentSection = document.getElementById('student-section');
-          const usernameInput = document.getElementById('username');
-          const passwordInput = document.getElementById('password');
+        function showWelcome() {
+            loginSection.style.display = 'none';
+            studentSection.style.display = 'none';
+            conocimientosSection.style.display = 'none';
+            welcomeSection.style.display = 'flex';
+        }
 
-          signOut(auth).then(() => { // Cierra la sesión en Firebase
-              console.log("Sesión cerrada en Firebase.");
-          }).catch((error) => {
-              console.error("Error al cerrar sesión en Firebase:", error);
-          });
+        function showAptitudes() {
+            welcomeSection.style.display = 'none';
+            studentSection.style.display = 'block';
+            conocimientosSection.style.display = 'none';
+        }
 
-          studentSection.style.display = 'none'; // Oculta la sección de estudiante
-          loginSection.style.display = 'flex'; // Muestra la sección de login
-          
-          usernameInput.value = ''; // Limpia los campos de usuario
-          passwordInput.value = ''; // Limpia los campos de clave
-          document.getElementById('message').textContent = ''; // Limpia el mensaje de error/éxito
-      }
+        function showConocimientos() {
+            welcomeSection.style.display = 'none';
+            studentSection.style.display = 'none';
+            conocimientosSection.style.display = 'block';
+        }
 
-      // Hacemos que las funciones estén disponibles globalmente para los botones onclick
-      window.checkCredentials = checkCredentials;
-      window.logout = logout;
+        function logout() {
+            signOut(auth).then(() => {
+                console.log("Sesión cerrada en Firebase.");
+            }).catch((error) => {
+                console.error("Error al cerrar sesión en Firebase:", error);
+            });
+            loginSection.style.display = 'flex';
+            welcomeSection.style.display = 'none';
+            studentSection.style.display = 'none';
+            conocimientosSection.style.display = 'none';
+            usernameInput.value = '';
+            passwordInput.value = '';
+            messageElement.textContent = '';
+        }
+
+        window.checkCredentials = checkCredentials;
+        window.logout = logout;
+        window.showAptitudes = showAptitudes;
+        window.showConocimientos = showConocimientos;
+        window.showWelcome = showWelcome;
     </script>
 </body>
 </html>
