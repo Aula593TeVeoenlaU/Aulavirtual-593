@@ -237,6 +237,18 @@
             background-color: #1a2a40;
             transform: translateY(-2px);
         }
+        .back-link-in-section {
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            color: #2b4055;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .back-link-in-section:hover {
+            color: #ff6b6b;
+        }
 
         /* Animaciones */
         @keyframes fadeIn {
@@ -256,7 +268,7 @@
             <div class="logo">
                 <img src="593imagenes/logo_aula_virtual.png" alt="Logo Aula Virtual 593">
             </div>
-            <h1>Aula Virtual 593 TeVeoenlaU</h1>
+            <h1>Acceso a Simuladores</h1>
             <div class="input-group">
                 <label for="username">Usuario:</label>
                 <input type="text" id="username" placeholder="Tu nombre de usuario">
@@ -265,7 +277,7 @@
                 <label for="password">Clave:</label>
                 <input type="password" id="password" placeholder="Tu clave de acceso">
             </div>
-            <button class="login-button" onclick="checkCredentials()">Iniciar Sesión</button>
+            <button class="login-button" onclick="checkCredentials()">Entrar a los Simuladores</button>
             <p id="message" class="message"></p>
         </div>
     </div>
@@ -287,6 +299,12 @@
                         <h3>Simuladores de Conocimientos</h3>
                     </div>
                 </div>
+                <div class="card" onclick="showTutorial()">
+                    <img src="593imagenes/tutorial_icon.jpg" alt="Tutorial de Uso">
+                    <div class="card-content">
+                        <h3>Tutorial de Uso</h3>
+                    </div>
+                </div>
             </div>
             <a href="#" class="back-link" onclick="logout()">Cerrar Sesión</a>
         </div>
@@ -306,6 +324,7 @@
         </div>
 
         <div class="container">
+            <a href="#" class="back-link-in-section" onclick="showWelcome()">← Regresar</a>
             <section id="pequenos" class="section">
                 <h2>📚 Simuladores de Habilidades (15 ejercicios)</h2>
                 <p style="color: #555;">Mejora tus aptitudes con nuestros simuladores de práctica enfocados en razonamiento lógico y verbal.</p>
@@ -419,17 +438,34 @@
             <p>Aquí estarán los simuladores enfocados en materias específicas. ¡Pronto disponibles!</p>
         </div>
         <div class="container">
+            <a href="#" class="back-link-in-section" onclick="showWelcome()">← Regresar</a>
             <section class="section">
                 <h2>Próximamente...</h2>
                 <p>Estamos trabajando para traerles los mejores simuladores de conocimientos para su preparación.</p>
             </section>
-            <a href="#" class="back-link" onclick="showWelcome()">Regresar</a>
         </div>
         <div class="footer">
             <p>&copy; 2025 Preuniversitario 593. Todos los derechos reservados.</p>
         </div>
     </div>
 
+    <div id="tutorial-section" style="display: none;">
+        <div class="header">
+            <h1>Tutorial de Uso del Aula Virtual 🎬</h1>
+            <p>Aprende a navegar por nuestra plataforma y sacar el máximo provecho a tus simuladores.</p>
+        </div>
+        <div class="container" style="text-align: center;">
+            <a href="#" class="back-link-in-section" onclick="showWelcome()">← Regresar</a>
+            <section class="section">
+                <h2>Video Tutorial</h2>
+                <p>Este espacio está reservado para el video. Una vez que lo tengas, solo debes pegar el código `iframe` de YouTube aquí. Por ejemplo:</p>
+                </section>
+        </div>
+        <div class="footer">
+            <p>&copy; 2025 Preuniversitario 593. Todos los derechos reservados.</p>
+        </div>
+    </div>
+    
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
@@ -451,7 +487,6 @@
         setPersistence(auth, browserSessionPersistence)
           .then(() => {
             console.log("Persistencia de sesión configurada para la sesión del navegador.");
-            // onAuthStateChanged se disparará después de esto
           })
           .catch((error) => {
             console.error("Error al configurar la persistencia:", error);
@@ -461,17 +496,15 @@
         const welcomeSection = document.getElementById('welcome-section');
         const studentSection = document.getElementById('student-section');
         const conocimientosSection = document.getElementById('conocimientos-section');
+        const tutorialSection = document.getElementById('tutorial-section'); // NUEVA VARIABLE
         const messageElement = document.getElementById('message');
         const usernameInput = document.getElementById('username');
         const passwordInput = document.getElementById('password');
 
-        // Función para verificar el estado de la autenticación
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // El usuario está logueado
                 showWelcome();
             } else {
-                // El usuario no está logueado
                 showLogin();
             }
         });
@@ -481,7 +514,6 @@
             try {
                 const email = `${usernameInput.value}@593teveoenlau.ec`;
                 await signInWithEmailAndPassword(auth, email, passwordInput.value);
-                // Si el login es exitoso, el onAuthStateChanged se encargará de mostrar la pantalla de bienvenida.
                 messageElement.textContent = 'Acceso exitoso. Redirigiendo...';
             } catch (error) {
                 console.error('Error de autenticación:', error);
@@ -500,12 +532,14 @@
              welcomeSection.style.display = 'none';
              studentSection.style.display = 'none';
              conocimientosSection.style.display = 'none';
+             tutorialSection.style.display = 'none';
         }
 
         function showWelcome() {
             loginSection.style.display = 'none';
             studentSection.style.display = 'none';
             conocimientosSection.style.display = 'none';
+            tutorialSection.style.display = 'none';
             welcomeSection.style.display = 'flex';
         }
 
@@ -513,18 +547,27 @@
             welcomeSection.style.display = 'none';
             studentSection.style.display = 'block';
             conocimientosSection.style.display = 'none';
+            tutorialSection.style.display = 'none';
         }
 
         function showConocimientos() {
             welcomeSection.style.display = 'none';
             studentSection.style.display = 'none';
             conocimientosSection.style.display = 'block';
+            tutorialSection.style.display = 'none';
+        }
+
+        function showTutorial() {
+            welcomeSection.style.display = 'none';
+            studentSection.style.display = 'none';
+            conocimientosSection.style.display = 'none';
+            tutorialSection.style.display = 'block';
         }
 
         function logout() {
             signOut(auth).then(() => {
                 console.log("Sesión cerrada en Firebase.");
-                showLogin(); // Llama a la función para mostrar la pantalla de login
+                showLogin();
                 usernameInput.value = '';
                 passwordInput.value = '';
                 messageElement.textContent = '';
@@ -533,12 +576,12 @@
             });
         }
         
-        // Hacemos que las funciones estén disponibles globalmente
         window.checkCredentials = checkCredentials;
         window.logout = logout;
         window.showAptitudes = showAptitudes;
         window.showConocimientos = showConocimientos;
         window.showWelcome = showWelcome;
+        window.showTutorial = showTutorial;
     </script>
 </body>
 </html>
