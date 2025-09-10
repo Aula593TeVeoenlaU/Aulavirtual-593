@@ -448,7 +448,7 @@
             studentSection.style.display = 'none';
             conocimientosSection.style.display = 'block';
         }
-
+        
         function logout() {
             signOut(auth).then(() => {
                 console.log("Sesión cerrada en Firebase.");
@@ -463,7 +463,8 @@
             passwordInput.value = '';
             messageElement.textContent = '';
         }
-
+        
+        // Hacemos que las funciones estén disponibles globalmente
         window.checkCredentials = checkCredentials;
         window.logout = logout;
         window.showAptitudes = showAptitudes;
