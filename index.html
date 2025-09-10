@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simuladores de Admisión - Preuniversitario 593</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         /* Estilos Generales */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            background-color: #f0f2f5;
+            font-family: 'Poppins', sans-serif;
+            background-color: #eef2f6; /* Fondo más suave */
             color: #333;
             margin: 0;
             padding: 0;
@@ -16,18 +19,26 @@
 
         /* Estilos del Header y Navbar */
         .header {
-            background-color: #2c3e50;
+            background-color: #1a2a40; /* Azul oscuro profundo */
             color: white;
-            padding: 1rem;
+            padding: 1.5rem;
             text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 10;
         }
         .header h1 {
             margin: 0;
-            font-size: 2rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .header p {
+            font-weight: 400;
+            margin-top: 0.5rem;
         }
         .nav {
-            background-color: #34495e;
-            padding: 0.5rem;
+            background-color: #2b4055; /* Un tono más claro que el header */
+            padding: 0.75rem;
             text-align: center;
             display: flex;
             justify-content: center;
@@ -36,77 +47,97 @@
         .nav a {
             color: white;
             text-decoration: none;
-            padding: 0.8rem 1.2rem;
+            padding: 0.8rem 1.5rem;
             display: inline-block;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease-in-out;
+            font-weight: 600;
+            border-radius: 5px;
+            margin: 0 5px;
         }
         .nav a:hover {
-            background-color: #e74c3c;
+            background-color: #ff6b6b; /* Un rojo más vibrante y moderno */
         }
 
         /* Contenedor principal de contenido */
         .container {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 1rem;
+            max-width: 1100px;
+            margin: 3rem auto;
+            padding: 2rem;
             background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         }
 
         /* Estilos de las secciones */
         .section {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            margin-bottom: 3rem;
         }
         .section h2 {
-            color: #2c3e50;
-            border-bottom: 2px solid #e74c3c;
-            padding-bottom: 0.5rem;
+            color: #1a2a40;
+            border-bottom: 3px solid #ff6b6b;
+            padding-bottom: 0.75rem;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
         }
 
         /* Estilos de las tarjetas (cards) */
         .card-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
         }
         .card {
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
+            background-color: #f7f9fc; /* Fondo claro para las tarjetas */
+            border-radius: 10px;
             overflow: hidden;
-            transition: transform 0.3s;
-            cursor: pointer; /* Agregado para los botones de bienvenida */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
         }
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
         }
         .card img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
         }
         .card-content {
-            padding: 1rem;
+            padding: 1.5rem;
             text-align: center;
         }
         .card-content h3 {
             margin-top: 0;
-            color: #e74c3c;
+            color: #1a2a40;
+            font-size: 1.25rem;
+            font-weight: 600;
         }
         .card-content p {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #666;
+            margin-bottom: 1rem;
+        }
+        .card-content a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .card-content a:hover {
+            background-color: #e65252;
         }
         .footer {
             text-align: center;
-            padding: 1rem;
-            background-color: #2c3e50;
+            padding: 1.5rem;
+            background-color: #1a2a40;
             color: white;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
         /* Estilos del Login y botones */
@@ -116,83 +147,105 @@
             align-items: center;
             min-height: 100vh;
             flex-direction: column;
+            background-color: #eef2f6;
         }
         .login-box {
             background-color: white;
-            padding: 2.5rem;
-            border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
             text-align: center;
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
+            position: relative;
+            animation: fadeIn 0.8s ease-out;
         }
         .login-box h1 {
-            color: #2c3e50;
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
+            color: #1a2a40;
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+            font-weight: 700;
         }
         .input-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.75rem;
             text-align: left;
         }
         .input-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             color: #555;
-            font-weight: bold;
+            font-weight: 600;
         }
         .input-group input[type="text"],
         .input-group input[type="password"] {
-            width: calc(100% - 20px);
-            padding: 12px 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            width: calc(100% - 24px);
+            padding: 15px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .input-group input[type="text"]:focus,
         .input-group input[type="password"]:focus {
-            border-color: #e74c3c;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 8px rgba(255, 107, 107, 0.3);
             outline: none;
         }
         .login-button {
-            background-color: #e74c3c;
+            background-color: #ff6b6b;
             color: white;
-            padding: 12px 25px;
+            padding: 15px 30px;
             border: none;
-            border-radius: 6px;
-            font-size: 1.1rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: background-color 0.3s ease, transform 0.2s ease;
             width: 100%;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
         }
         .login-button:hover {
-            background-color: #c0392b;
-            transform: translateY(-2px);
+            background-color: #e65252;
+            transform: translateY(-3px);
         }
         .message {
-            margin-top: 1.5rem;
-            color: red;
-            font-weight: bold;
+            margin-top: 2rem;
+            color: #e65252;
+            font-weight: 600;
+            animation: popUp 0.5s ease;
         }
         .logo img {
-            max-width: 150px;
+            max-width: 180px;
             height: auto;
-            border-radius: 5px;
-            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         .back-link {
             display: inline-block;
-            margin-top: 1.5rem;
-            padding: 10px 15px;
-            background-color: #34495e;
+            margin-top: 2rem;
+            padding: 12px 20px;
+            background-color: #2b4055;
             color: white;
             text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
         .back-link:hover {
-            background-color: #2c3e50;
+            background-color: #1a2a40;
+            transform: translateY(-2px);
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes popUp {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
@@ -220,8 +273,8 @@
     <div id="welcome-section" class="login-container" style="display: none;">
         <div class="login-box">
             <h1>¡Bienvenido a Preuniversitario 593!</h1>
-            <p>Selecciona el tipo de simulador que deseas practicar:</p>
-            <div class="card-container" style="margin-top: 2rem;">
+            <p style="color: #666;">Selecciona el tipo de simulador que deseas practicar:</p>
+            <div class="card-container" style="margin-top: 2.5rem;">
                 <div class="card" onclick="showAptitudes()">
                     <img src="593imagenes/simulador_aptitudes.jpg" alt="Simuladores de Aptitudes">
                     <div class="card-content">
@@ -246,6 +299,7 @@
         </div>
 
         <div class="nav">
+            <a href="#" onclick="showWelcome()">Inicio</a>
             <a href="#pequenos">Simuladores de 15 ejercicios</a>
             <a href="#grande">Simulador completo</a>
             <a href="#" onclick="logout()">Cerrar Sesión</a>
@@ -254,14 +308,14 @@
         <div class="container">
             <section id="pequenos" class="section">
                 <h2>📚 Simuladores de Habilidades (15 ejercicios)</h2>
-                <p>Mejora tus aptitudes con nuestros simuladores de práctica enfocados en razonamiento lógico y verbal.</p>
+                <p style="color: #555;">Mejora tus aptitudes con nuestros simuladores de práctica enfocados en razonamiento lógico y verbal.</p>
                 <div class="card-container">
                     <div class="card">
                         <img src="593imagenes/simulador_1.jpg" alt="Simulador 1">
                         <div class="card-content">
                             <h3>Simulador de Aptitud 1</h3>
                             <p>15 ejercicios de razonamiento numérico. ¡Perfecto para un repaso rápido!</p>
-                            <a href="#" style="color: #e74c3c; font-weight: bold;">Iniciar</a>
+                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
                         </div>
                     </div>
                     <div class="card">
@@ -269,7 +323,7 @@
                         <div class="card-content">
                             <h3>Simulador de Aptitud 2</h3>
                             <p>15 ejercicios de razonamiento abstracto. ¡Mide tu capacidad de análisis!</p>
-                            <a href="#" style="color: #e74c3c; font-weight: bold;">Iniciar</a>
+                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
                         </div>
                     </div>
                     <div class="card">
@@ -277,7 +331,7 @@
                         <div class="card-content">
                             <h3>Simulador de Aptitud 3</h3>
                             <p>15 ejercicios de razonamiento verbal. ¡Aumenta tu léxico y comprensión!</p>
-                            <a href="#" style="color: #e74c3c; font-weight: bold;">Iniciar</a>
+                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
                         </div>
                     </div>
                     <div class="card">
@@ -285,7 +339,7 @@
                         <div class="card-content">
                             <h3>Simulador de Aptitud 4</h3>
                             <p>15 ejercicios de matemáticas. ¡Prueba tus conocimientos básicos de álgebra!</p>
-                            <a href="#" style="color: #e74c3c; font-weight: bold;">Iniciar</a>
+                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
                         </div>
                     </div>
                     <div class="card">
@@ -293,7 +347,7 @@
                         <div class="card-content">
                             <h3>Simulador de Aptitud 5</h3>
                             <p>15 ejercicios de física. ¡Pon a prueba tu comprensión de conceptos!</p>
-                            <a href="#" style="color: #e74c3c; font-weight: bold;">Iniciar</a>
+                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
                         </div>
                     </div>
                     <div class="card">
@@ -301,7 +355,7 @@
                         <div class="card-content">
                             <h3>Simulador de Aptitud 6</h3>
                             <p>15 ejercicios de química. ¡Mide tu dominio de la tabla periódica y reacciones!</p>
-                            <a href="#" style="color: #e74c3c; font-weight: bold;">Iniciar</a>
+                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
                         </div>
                     </div>
                     <div class="card">
@@ -309,7 +363,7 @@
                         <div class="card-content">
                             <h3>Simulador de Aptitud 7</h3>
                             <p>15 ejercicios de biología. ¡Repasa la vida y los ecosistemas!</p>
-                            <a href="#" style="color: #e74c3c; font-weight: bold;">Iniciar</a>
+                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
                         </div>
                     </div>
                     <div class="card">
@@ -317,7 +371,7 @@
                         <div class="card-content">
                             <h3>Simulador de Aptitud 8</h3>
                             <p>15 ejercicios de historia. ¡Recuerda los hitos históricos de Ecuador y el mundo!</p>
-                            <a href="#" style="color: #e74c3c; font-weight: bold;">Iniciar</a>
+                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
                         </div>
                     </div>
                     <div class="card">
@@ -325,7 +379,7 @@
                         <div class="card-content">
                             <h3>Simulador de Aptitud 9</h3>
                             <p>15 ejercicios de ciencias sociales. ¡Analiza la sociedad y la cultura!</p>
-                            <a href="#" style="color: #e74c3c; font-weight: bold;">Iniciar</a>
+                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
                         </div>
                     </div>
                     <div class="card">
@@ -333,7 +387,7 @@
                         <div class="card-content">
                             <h3>Simulador de Aptitud 10</h3>
                             <p>15 ejercicios de aptitud para la universidad. ¡Una prueba variada!</p>
-                            <a href="#" style="color: #e74c3c; font-weight: bold;">Iniciar</a>
+                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
                         </div>
                     </div>
                 </div>
@@ -341,14 +395,14 @@
             
             <section id="grande" class="section">
                 <h2>📝 Simulador Completo (60 ejercicios)</h2>
-                <p>¡El simulacro más grande para prepararte para el examen real! Incluye todas las áreas de aptitud.</p>
+                <p style="color: #555;">¡El simulacro más grande para prepararte para el examen real! Incluye todas las áreas de aptitud.</p>
                 <div class="card-container">
                     <div class="card">
                         <img src="593imagenes/simulador_grande.jpg" alt="Simulador Completo">
                         <div class="card-content">
                             <h3>Simulador de Admisión Completo</h3>
                             <p>60 preguntas que combinan razonamiento numérico, lógico, verbal y abstracto.</p>
-                            <a href="#" style="color: #e74c3c; font-weight: bold;">Iniciar Examen</a>
+                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar Examen</a>
                         </div>
                     </div>
                 </div>
@@ -378,7 +432,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 
         // TU CONFIGURACIÓN DE FIREBASE
         const firebaseConfig = {
@@ -392,6 +446,16 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+
+        // CONFIGURAR LA PERSISTENCIA DE SESIÓN A `SESSION`
+        setPersistence(auth, browserSessionPersistence)
+          .then(() => {
+            console.log("Persistencia de sesión configurada para la sesión del navegador.");
+            // onAuthStateChanged se disparará después de esto
+          })
+          .catch((error) => {
+            console.error("Error al configurar la persistencia:", error);
+          });
 
         const loginSection = document.getElementById('login-section');
         const welcomeSection = document.getElementById('welcome-section');
@@ -408,7 +472,7 @@
                 showWelcome();
             } else {
                 // El usuario no está logueado
-                logout();
+                showLogin();
             }
         });
 
@@ -417,17 +481,25 @@
             try {
                 const email = `${usernameInput.value}@593teveoenlau.ec`;
                 await signInWithEmailAndPassword(auth, email, passwordInput.value);
-                messageElement.textContent = ''; // Limpiar mensaje al tener éxito
+                // Si el login es exitoso, el onAuthStateChanged se encargará de mostrar la pantalla de bienvenida.
+                messageElement.textContent = 'Acceso exitoso. Redirigiendo...';
             } catch (error) {
                 console.error('Error de autenticación:', error);
                 let errorMessage = "Usuario o clave incorrecta. Inténtalo de nuevo.";
-                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
                     errorMessage = "Usuario o clave incorrecta. Inténtalo de nuevo.";
                 } else if (error.code === 'auth/invalid-email') {
                     errorMessage = "Formato de usuario inválido. Por favor, revisa tu usuario.";
                 }
                 messageElement.textContent = errorMessage;
             }
+        }
+
+        function showLogin() {
+             loginSection.style.display = 'flex';
+             welcomeSection.style.display = 'none';
+             studentSection.style.display = 'none';
+             conocimientosSection.style.display = 'none';
         }
 
         function showWelcome() {
@@ -448,20 +520,17 @@
             studentSection.style.display = 'none';
             conocimientosSection.style.display = 'block';
         }
-        
+
         function logout() {
             signOut(auth).then(() => {
                 console.log("Sesión cerrada en Firebase.");
+                showLogin(); // Llama a la función para mostrar la pantalla de login
+                usernameInput.value = '';
+                passwordInput.value = '';
+                messageElement.textContent = '';
             }).catch((error) => {
                 console.error("Error al cerrar sesión en Firebase:", error);
             });
-            loginSection.style.display = 'flex';
-            welcomeSection.style.display = 'none';
-            studentSection.style.display = 'none';
-            conocimientosSection.style.display = 'none';
-            usernameInput.value = '';
-            passwordInput.value = '';
-            messageElement.textContent = '';
         }
         
         // Hacemos que las funciones estén disponibles globalmente
