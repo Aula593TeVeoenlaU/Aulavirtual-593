@@ -365,7 +365,7 @@
 
           try {
               // Firebase usa correo electrónico, así que lo formateamos con un dominio inventado
-              const email = `${usernameInput}@simuladores593.com`; 
+             const email = `${usernameInput}@593teveoenlau.ec`; // Formatea como correo para Firebase, usando tu dominio real 
               await signInWithEmailAndPassword(auth, email, passwordInput); // Intenta iniciar sesión
 
               messageElement.textContent = 'Acceso exitoso. Redirigiendo...';
