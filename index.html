@@ -6,259 +6,307 @@
     <title>Simuladores de Admisión - Preuniversitario 593</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos Generales */
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #eef2f6; /* Fondo más suave */
-            color: #333;
+        /* ========================================
+        ESTILOS PROFESIONALES (CON AJUSTES PREVIOS)
+        ========================================
+        */
+
+        :root {
+            --primary-color: #0d1b2a;
+            --secondary-color: #1b263b;
+            --accent-color: #e07a5f;
+            --accent-hover: #f28482;
+            --light-bg: #f4f1de;
+            --text-color: #3d405b;
+            --text-light: #81b29a;
+            --card-bg: #ffffff;
+            --white: #ffffff;
+            --shadow-light: rgba(0, 0, 0, 0.05);
+            --shadow-dark: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
-        /* Estilos del Header y Navbar */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
         .header {
-            background-color: #1a2a40; /* Azul oscuro profundo */
-            color: white;
-            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 3rem 2rem;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            position: relative;
-            z-index: 10;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 30px var(--shadow-dark);
         }
         .header h1 {
-            margin: 0;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 700;
         }
         .header p {
-            font-weight: 400;
-            margin-top: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 300;
+            opacity: 0.9;
         }
-        .nav {
-            background-color: #2b4055; /* Un tono más claro que el header */
-            padding: 0.75rem;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .nav a {
-            color: white;
-            text-decoration: none;
-            padding: 0.8rem 1.5rem;
-            display: inline-block;
-            transition: background-color 0.3s ease-in-out;
-            font-weight: 600;
-            border-radius: 5px;
-            margin: 0 5px;
-        }
-        .nav a:hover {
-            background-color: #ff6b6b; /* Un rojo más vibrante y moderno */
-        }
-
-        /* Contenedor principal de contenido */
-        .container {
-            max-width: 1100px;
-            margin: 3rem auto;
-            padding: 2rem;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        }
-
-        /* Estilos de las secciones */
+        
         .section {
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
         }
         .section h2 {
-            color: #1a2a40;
-            border-bottom: 3px solid #ff6b6b;
-            padding-bottom: 0.75rem;
-            margin-bottom: 2rem;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .section > p {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem auto;
+            color: #666;
         }
 
-        /* Estilos de las tarjetas (cards) */
         .card-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
         .card {
-            background-color: #f7f9fc; /* Fondo claro para las tarjetas */
-            border-radius: 10px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
             overflow: hidden;
+            box-shadow: 0 8px 25px var(--shadow-light);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
         }
         .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px var(--shadow-dark);
+        }
+        .card-image-wrapper {
+            position: relative;
+            height: 220px;
+        }
+        .card-image-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%);
         }
         .card img {
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
         }
         .card-content {
             padding: 1.5rem;
-            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
         .card-content h3 {
-            margin-top: 0;
-            color: #1a2a40;
-            font-size: 1.25rem;
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-color);
+            font-size: 1.3rem;
             font-weight: 600;
         }
         .card-content p {
             font-size: 0.95rem;
             color: #666;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
         }
-        .card-content a {
+        .card-content .btn {
             display: inline-block;
-            padding: 10px 20px;
-            background-color: #ff6b6b;
-            color: white;
+            padding: 12px 25px;
+            background-color: var(--accent-color);
+            color: var(--white);
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
-            transition: background-color 0.3s ease;
-        }
-        .card-content a:hover {
-            background-color: #e65252;
-        }
-        .footer {
+            transition: background-color 0.3s ease, transform 0.2s ease;
             text-align: center;
-            padding: 1.5rem;
-            background-color: #1a2a40;
-            color: white;
-            margin-top: 3rem;
         }
-
-        /* Estilos del Login y botones */
+        .card-content .btn:hover {
+            background-color: var(--accent-hover);
+            transform: scale(1.05);
+        }
+        
         .login-container {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            flex-direction: column;
-            background-color: #eef2f6;
+            padding: 2rem;
         }
         .login-box {
-            background-color: white;
+            background-color: var(--card-bg);
             padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px var(--shadow-dark);
             text-align: center;
             width: 100%;
             max-width: 450px;
-            position: relative;
             animation: fadeIn 0.8s ease-out;
         }
+        .logo {
+            margin-bottom: 1.5rem;
+        }
+        .logo img {
+            max-width: 150px;
+            border-radius: 12px;
+        }
         .login-box h1 {
-            color: #1a2a40;
-            margin-bottom: 2rem;
-            font-size: 2.2rem;
-            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 2.5rem;
         }
         .input-group {
-            margin-bottom: 1.75rem;
+            margin-bottom: 1.5rem;
             text-align: left;
         }
         .input-group label {
             display: block;
-            margin-bottom: 0.75rem;
-            color: #555;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
             font-weight: 600;
+            font-size: 0.9rem;
         }
-        .input-group input[type="text"],
-        .input-group input[type="password"] {
-            width: calc(100% - 24px);
-            padding: 15px 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+        .input-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
             font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .input-group input[type="text"]:focus,
-        .input-group input[type="password"]:focus {
-            border-color: #ff6b6b;
-            box-shadow: 0 0 8px rgba(255, 107, 107, 0.3);
+        .input-group input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(224, 122, 95, 0.3);
             outline: none;
         }
         .login-button {
-            background-color: #ff6b6b;
-            color: white;
-            padding: 15px 30px;
+            background: linear-gradient(45deg, var(--accent-color), var(--accent-hover));
+            color: var(--white);
+            padding: 15px;
             border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
             width: 100%;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(224, 122, 95, 0.4);
         }
         .login-button:hover {
-            background-color: #e65252;
             transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(224, 122, 95, 0.5);
         }
         .message {
-            margin-top: 2rem;
-            color: #e65252;
+            margin-top: 1.5rem;
+            color: var(--accent-hover);
             font-weight: 600;
-            animation: popUp 0.5s ease;
-        }
-        .logo img {
-            max-width: 180px;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            min-height: 20px;
         }
         .back-link {
             display: inline-block;
             margin-top: 2rem;
-            padding: 12px 20px;
-            background-color: #2b4055;
-            color: white;
+            color: var(--text-color);
             text-decoration: none;
-            border-radius: 50px;
             font-weight: 600;
-            transition: background-color 0.3s ease, transform 0.2s ease;
         }
         .back-link:hover {
-            background-color: #1a2a40;
-            transform: translateY(-2px);
+            color: var(--accent-color);
         }
         .back-link-in-section {
             display: inline-block;
             margin-bottom: 2rem;
-            font-size: 1.1rem;
-            color: #2b4055;
+            font-size: 1rem;
+            color: var(--secondary-color);
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease;
         }
         .back-link-in-section:hover {
-            color: #ff6b6b;
+            color: var(--accent-color);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--secondary-color);
+            color: #ccc;
+            margin-top: 3rem;
         }
 
-        /* Animaciones */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes popUp {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
+
+        /* AJUSTES PARA LA VISTA HORIZONTAL DE BIENVENIDA */
+        #welcome-section .login-box {
+            max-width: 1100px;
+            transition: all 0.5s ease;
         }
+        #welcome-section .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        #welcome-section .card {
+            flex: 1 1 300px;
+            max-width: 320px;
+        }
+
+        /* --- NUEVO CSS PARA VIDEO RESPONSIVO --- */
+        .video-responsive-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%; /* Proporción 16:9 */
+            margin: 2rem auto;
+            max-width: 800px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow-dark);
+        }
+        .video-responsive-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
     </style>
 </head>
 <body>
@@ -270,39 +318,48 @@
             </div>
             <h1>Acceso a Simuladores</h1>
             <div class="input-group">
-                <label for="username">Usuario:</label>
+                <label for="username">Usuario</label>
                 <input type="text" id="username" placeholder="Tu nombre de usuario">
             </div>
             <div class="input-group">
-                <label for="password">Clave:</label>
+                <label for="password">Clave</label>
                 <input type="password" id="password" placeholder="Tu clave de acceso">
             </div>
-            <button class="login-button" onclick="checkCredentials()">Entrar a los Simuladores</button>
+            <button class="login-button" onclick="checkCredentials()">Entrar</button>
             <p id="message" class="message"></p>
         </div>
     </div>
 
     <div id="welcome-section" class="login-container" style="display: none;">
         <div class="login-box">
-            <h1>¡Bienvenido a Preuniversitario 593!</h1>
-            <p style="color: #666;">Selecciona el tipo de simulador que deseas practicar:</p>
-            <div class="card-container" style="margin-top: 2.5rem;">
+            <h1>¡Bienvenido a Preuniversitario 593 TeVeoenlaU!</h1>
+            <p style="color: #666; margin-bottom: 2.5rem;">Selecciona el tipo de simulador que deseas practicar:</p>
+            <div class="card-container">
                 <div class="card" onclick="showAptitudes()">
-                    <img src="593imagenes/simulador_aptitudes.jpg" alt="Simuladores de Aptitudes">
+                    <div class="card-image-wrapper">
+                        <img src="593imagenes/simulador_aptitudes.jpg" alt="Simuladores de Aptitudes">
+                    </div>
                     <div class="card-content">
                         <h3>Simuladores de Aptitudes</h3>
+                        <p>Practica con ejercicios de razonamiento numérico, verbal, abstracto y más.</p>
                     </div>
                 </div>
                 <div class="card" onclick="showConocimientos()">
-                    <img src="593imagenes/simulador_conocimientos.jpg" alt="Simuladores de Conocimientos">
+                    <div class="card-image-wrapper">
+                       <img src="593imagenes/simulador_conocimientos.jpg" alt="Simuladores de Conocimientos">
+                    </div>
                     <div class="card-content">
                         <h3>Simuladores de Conocimientos</h3>
+                        <p>Evalúa tus conocimientos en materias específicas. ¡Próximamente!</p>
                     </div>
                 </div>
                 <div class="card" onclick="showTutorial()">
-                    <img src="593imagenes/tutorial_icon.jpg" alt="Tutorial de Uso">
+                    <div class="card-image-wrapper">
+                        <img src="593imagenes/tutorial_icon.jpg" alt="Tutorial de Uso">
+                    </div>
                     <div class="card-content">
-                        <h3>Tutorial de Uso del Aula Virtual</h3>
+                        <h3>Tutorial de Uso</h3>
+                        <p>Aprende a navegar y aprovechar al máximo todos los recursos de la plataforma.</p>
                     </div>
                 </div>
             </div>
@@ -312,165 +369,171 @@
 
     <div id="student-section" style="display: none;">
         <div class="header">
-            <h1>Simuladores de Admisión 🎓</h1>
-            <p>¡Practica con simulacros completos para los exámenes de ingreso a las universidades de Ecuador!</p>
+            <h1>Simuladores de Aptitudes 🎓</h1>
+            <p>¡Practica y prepárate para los exámenes de ingreso!</p>
         </div>
 
-        <div class="nav">
-            <a href="#" onclick="showWelcome()">Inicio</a>
-            <a href="#pequenos">Simuladores de 15 ejercicios</a>
-            <a href="#grande">Simulador completo</a>
-            <a href="#" onclick="logout()">Cerrar Sesión</a>
-        </div>
-
-        <div class="container">
-            <a href="#" class="back-link-in-section" onclick="showWelcome()">← Regresar</a>
-            <section id="pequenos" class="section">
-                <h2>📚 Simuladores de Habilidades (15 ejercicios)</h2>
-                <p style="color: #555;">Mejora tus aptitudes con nuestros simuladores de práctica enfocados en razonamiento lógico y verbal.</p>
-                <div class="card-container">
-                    <div class="card">
-                        <img src="593imagenes/simulador_1.jpg" alt="Simulador 1">
-                        <div class="card-content">
-                            <h3>Simulador de Aptitud 1</h3>
-                            <p>15 ejercicios de razonamiento numérico. ¡Perfecto para un repaso rápido!</p>
-                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
+        <main class="main-container">
+            <a href="#" class="back-link-in-section" onclick="showWelcome()">← Volver al Inicio</a>
+            
+            <section id="videos-apoyo" class="section">
+                <h2>🎬 Videos de Apoyo</h2>
+                <p>Refuerza tu aprendizaje con clases y tutoriales grabados por nuestros profesores expertos.</p>
+                <div class="card-container" style="max-width: 450px; margin: auto;">
+                    <div class="card" onclick="showVideos()">
+                        <div class="card-image-wrapper">
+                            <img src="593imagenes/tutorial_icon.jpg" alt="Videos de Apoyo">
                         </div>
-                    </div>
-                    <div class="card">
-                        <img src="593imagenes/simulador_2.jpg" alt="Simulador 2">
                         <div class="card-content">
-                            <h3>Simulador de Aptitud 2</h3>
-                            <p>15 ejercicios de razonamiento abstracto. ¡Mide tu capacidad de análisis!</p>
-                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="593imagenes/simulador_3.jpg" alt="Simulador 3">
-                        <div class="card-content">
-                            <h3>Simulador de Aptitud 3</h3>
-                            <p>15 ejercicios de razonamiento verbal. ¡Aumenta tu léxico y comprensión!</p>
-                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="593imagenes/simulador_4.jpg" alt="Simulador 4">
-                        <div class="card-content">
-                            <h3>Simulador de Aptitud 4</h3>
-                            <p>15 ejercicios de matemáticas. ¡Prueba tus conocimientos básicos de álgebra!</p>
-                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="593imagenes/simulador_5.jpg" alt="Simulador 5">
-                        <div class="card-content">
-                            <h3>Simulador de Aptitud 5</h3>
-                            <p>15 ejercicios de física. ¡Pon a prueba tu comprensión de conceptos!</p>
-                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="593imagenes/simulador_6.jpg" alt="Simulador 6">
-                        <div class="card-content">
-                            <h3>Simulador de Aptitud 6</h3>
-                            <p>15 ejercicios de química. ¡Mide tu dominio de la tabla periódica y reacciones!</p>
-                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="593imagenes/simulador_7.jpg" alt="Simulador 7">
-                        <div class="card-content">
-                            <h3>Simulador de Aptitud 7</h3>
-                            <p>15 ejercicios de biología. ¡Repasa la vida y los ecosistemas!</p>
-                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="593imagenes/simulador_8.jpg" alt="Simulador 8">
-                        <div class="card-content">
-                            <h3>Simulador de Aptitud 8</h3>
-                            <p>15 ejercicios de historia. ¡Recuerda los hitos históricos de Ecuador y el mundo!</p>
-                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="593imagenes/simulador_9.jpg" alt="Simulador 9">
-                        <div class="card-content">
-                            <h3>Simulador de Aptitud 9</h3>
-                            <p>15 ejercicios de ciencias sociales. ¡Analiza la sociedad y la cultura!</p>
-                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="593imagenes/simulador_10.jpg" alt="Simulador 10">
-                        <div class="card-content">
-                            <h3>Simulador de Aptitud 10</h3>
-                            <p>15 ejercicios de aptitud para la universidad. ¡Una prueba variada!</p>
-                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar</a>
+                            <h3>Videoteca de Clases</h3>
+                            <p>Accede a nuestra colección de videos explicativos para todas las áreas de estudio.</p>
+                            <span class="btn">Ver Videos</span>
                         </div>
                     </div>
                 </div>
+            </section>
+
+            <section id="pequenos" class="section">
+                <h2>📚 Simuladores de 15 Ejercicios</h2>
+                <p>Mejora tus aptitudes con nuestros simuladores de práctica enfocados en razonamientos específicos.</p>
+                <div class="card-container">
+                    <div class="card">
+                         <div class="card-image-wrapper">
+                            <img src="593imagenes/simulador_1.jpg" alt="Simulador 1">
+                        </div>
+                        <div class="card-content">
+                            <h3>Simulador de Aptitudes 1</h3>
+                            <p>15 ejercicios de 3 aptitudes: matemática, abstracta y verbal.</p>
+                            <a href="http://simulador1-593teveoenlau.netlify.app" class="btn" target="_blank" rel="noopener noreferrer">Iniciar</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-image-wrapper">
+                           <img src="593imagenes/simulador_2.jpg" alt="Simulador 2">
+                       </div>
+                       <div class="card-content">
+                           <h3>Simulador de Aptitudes 2</h3>
+                           <p>15 ejercicios de 3 aptitudes: matemática, abstracta y verbal.</p>
+                           <a href="http://simulador2-593teveoenlau.netlify.app" class="btn" target="_blank" rel="noopener noreferrer">Iniciar</a>
+                       </div>
+                   </div>
+                    <div class="card">
+                        <div class="card-image-wrapper">
+                           <img src="593imagenes/simulador_3.jpg" alt="Simulador 3">
+                       </div>
+                       <div class="card-content">
+                           <h3>Simulador de Aptitudes 3</h3>
+                           <p>15 ejercicios de 3 aptitudes: matemática, abstracta y verbal.</p>
+                           <a href="#" class="btn">Iniciar</a>
+                       </div>
+                   </div>
+                    </div>
             </section>
             
             <section id="grande" class="section">
-                <h2>📝 Simulador Completo (60 ejercicios)</h2>
-                <p style="color: #555;">¡El simulacro más grande para prepararte para el examen real! Incluye todas las áreas de aptitud.</p>
-                <div class="card-container">
+                <h2>📝 Simulador Completo</h2>
+                <p>¡El simulacro más grande para prepararte para el examen real! Incluye todas las áreas de aptitud.</p>
+                <div class="card-container" style="max-width: 450px; margin: auto;">
                     <div class="card">
-                        <img src="593imagenes/simulador_grande.jpg" alt="Simulador Completo">
+                        <div class="card-image-wrapper">
+                            <img src="593imagenes/simulador_grande.jpg" alt="Simulador Completo">
+                        </div>
                         <div class="card-content">
                             <h3>Simulador de Admisión Completo</h3>
                             <p>60 preguntas que combinan razonamiento numérico, lógico, verbal y abstracto.</p>
-                            <a href="#" style="background-color: #ff6b6b; color: white; text-decoration: none;">Iniciar Examen</a>
+                            <a href="#" class="btn">Iniciar Examen</a>
                         </div>
                     </div>
                 </div>
             </section>
-        </div>
-        <div class="footer">
-            <p>&copy; 2025 Preuniversitario 593. Todos los derechos reservados.</p>
-        </div>
+        </main>
+        
+        <footer class="footer">
+            <p>&copy; 2025 Preuniversitario 593 TeVeoenlaU. Todos los derechos reservados.</p>
+        </footer>
     </div>
 
     <div id="conocimientos-section" style="display: none;">
         <div class="header">
-            <h1>Simuladores de Conocimientos 📖</h1>
-            <p>Aquí estarán los simuladores enfocados en materias específicas. ¡Pronto disponibles!</p>
+            <h1>Simuladores de Conocimientos 🚧</h1>
+            <p>¡Estamos trabajando en esta sección!</p>
         </div>
-        <div class="container">
-            <a href="#" class="back-link-in-section" onclick="showWelcome()">← Regresar</a>
+        <main class="main-container" style="text-align: center;">
+            <a href="#" class="back-link-in-section" onclick="showWelcome()">← Volver al Inicio</a>
             <section class="section">
-                <h2>Próximamente...</h2>
-                <p>Estamos trabajando para traerles los mejores simuladores de conocimientos para su preparación.</p>
+                <h2>Página en Construcción</h2>
+                <p>Nuestros simuladores por materia estarán disponibles muy pronto. Estamos preparando el mejor material para que puedas practicar en áreas como matemáticas, física, química, historia y más.</p>
+                <p><strong>¡Vuelve pronto!</strong></p>
             </section>
-        </div>
-        <div class="footer">
-            <p>&copy; 2025 Preuniversitario 593. Todos los derechos reservados.</p>
-        </div>
+        </main>
+        <footer class="footer">
+            <p>&copy; 2025 Preuniversitario 593 TeVeoenlaU. Todos los derechos reservados.</p>
+        </footer>
     </div>
 
     <div id="tutorial-section" style="display: none;">
         <div class="header">
-            <h1>Tutorial de Uso del Aula Virtual 🎬</h1>
-            <p>Aprende a navegar por nuestra plataforma y sacar el máximo provecho a tus simuladores.</p>
+            <h1>Video Tutorial de Uso 🎥</h1>
+            <p>Aprende a usar nuestra plataforma de simuladores.</p>
         </div>
-        <div class="container" style="text-align: center;">
-            <a href="#" class="back-link-in-section" onclick="showWelcome()">← Regresar</a>
+        <main class="main-container">
+            <a href="#" class="back-link-in-section" onclick="showWelcome()">← Volver al Inicio</a>
             <section class="section">
-                <h2>Video Tutorial</h2>
-                <p>Este espacio está reservado para el video. Una vez que lo tengas, solo debes pegar el código `iframe` de YouTube aquí. Por ejemplo:</p>
-                </section>
-        </div>
-        <div class="footer">
-            <p>&copy; 2025 Preuniversitario 593. Todos los derechos reservados.</p>
-        </div>
+                <h2>¿Cómo usar los simuladores?</h2>
+                <p>Mira el siguiente video para un recorrido completo por todas las funciones y aprovecha al máximo tu preparación.</p>
+                
+                <div class="video-responsive-container">
+                    <iframe 
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+            </section>
+        </main>
+        <footer class="footer">
+            <p>&copy; 2025 Preuniversitario 593 TeVeoenlaU. Todos los derechos reservados.</p>
+        </footer>
     </div>
     
-    <script type="module">
+    <div id="videos-section" style="display: none;">
+        <div class="header">
+            <h1>Videoteca de Clases 🎬</h1>
+            <p>Aquí encontrarás videos explicativos para reforzar los temas más importantes.</p>
+        </div>
+        <main class="main-container">
+            <a href="#" class="back-link-in-section" onclick="showAptitudes()">← Volver a Simuladores</a>
+            <section class="section">
+                <h2>Razonamiento Numérico</h2>
+                <p>Aprende a resolver los ejercicios más comunes paso a paso.</p>
+                <div class="card-container">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Clase 1: Reglas de Tres</h3>
+                            <p>Espacio para el video. Pega aquí el código `iframe` de YouTube.</p>
+                            </div>
+                    </div>
+                     <div class="card">
+                        <div class="card-content">
+                            <h3>Clase 2: Porcentajes</h3>
+                            <p>Espacio para el video. Pega aquí el código `iframe` de YouTube.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="footer">
+            <p>&copy; 2025 Preuniversitario 593 TeVeoenlaU. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+   <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 
-        // TU CONFIGURACIÓN DE FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyB045iUiFGuXxbagFDOTuw__2Yx-eUWDgo",
             authDomain: "aulavirtual-593.firebaseapp.com",
@@ -483,28 +546,50 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // CONFIGURAR LA PERSISTENCIA DE SESIÓN A `SESSION`
         setPersistence(auth, browserSessionPersistence)
-          .then(() => {
-            console.log("Persistencia de sesión configurada para la sesión del navegador.");
-          })
-          .catch((error) => {
-            console.error("Error al configurar la persistencia:", error);
-          });
+          .catch((error) => console.error("Error al configurar la persistencia:", error));
 
         const loginSection = document.getElementById('login-section');
         const welcomeSection = document.getElementById('welcome-section');
         const studentSection = document.getElementById('student-section');
         const conocimientosSection = document.getElementById('conocimientos-section');
-        const tutorialSection = document.getElementById('tutorial-section'); // NUEVA VARIABLE
+        const tutorialSection = document.getElementById('tutorial-section');
+        const videosSection = document.getElementById('videos-section');
         const messageElement = document.getElementById('message');
         const usernameInput = document.getElementById('username');
         const passwordInput = document.getElementById('password');
 
+        // --- INICIO DE CAMBIOS ---
+
+        // 1. Creamos una función "Router" que decide qué mostrar según el Hash de la URL
+        function router() {
+            const hash = window.location.hash;
+            switch(hash) {
+                case '#aptitudes':
+                    showAptitudes(true); // El 'true' evita que se vuelva a cambiar el hash
+                    break;
+                case '#conocimientos':
+                    showConocimientos(true);
+                    break;
+                case '#tutorial':
+                    showTutorial(true);
+                    break;
+                case '#videos':
+                    showVideos(true);
+                    break;
+                case '#welcome':
+                default: // Si no hay hash o es desconocido, vamos a la bienvenida
+                    showWelcome(true);
+                    break;
+            }
+        }
+
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                showWelcome();
+                // Si el usuario está logueado, usamos el router para mostrar la sección correcta
+                router();
             } else {
+                // Si no, mostramos el login
                 showLogin();
             }
         });
@@ -514,74 +599,80 @@
             try {
                 const email = `${usernameInput.value}@593teveoenlau.ec`;
                 await signInWithEmailAndPassword(auth, email, passwordInput.value);
+                // Al loguearse con éxito, no redirigimos, el onAuthStateChanged se encargará
                 messageElement.textContent = 'Acceso exitoso. Redirigiendo...';
             } catch (error) {
-                console.error('Error de autenticación:', error);
                 let errorMessage = "Usuario o clave incorrecta. Inténtalo de nuevo.";
-                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
-                    errorMessage = "Usuario o clave incorrecta. Inténtalo de nuevo.";
-                } else if (error.code === 'auth/invalid-email') {
+                if (error.code === 'auth/invalid-email') {
                     errorMessage = "Formato de usuario inválido. Por favor, revisa tu usuario.";
                 }
                 messageElement.textContent = errorMessage;
             }
         }
 
-        function showLogin() {
-             loginSection.style.display = 'flex';
-             welcomeSection.style.display = 'none';
-             studentSection.style.display = 'none';
-             conocimientosSection.style.display = 'none';
-             tutorialSection.style.display = 'none';
-        }
-
-        function showWelcome() {
+        function hideAllSections() {
             loginSection.style.display = 'none';
+            welcomeSection.style.display = 'none';
             studentSection.style.display = 'none';
             conocimientosSection.style.display = 'none';
             tutorialSection.style.display = 'none';
+            videosSection.style.display = 'none';
+        }
+
+        // 2. Modificamos TODAS las funciones "show" para que actualicen el HASH de la URL
+        function showLogin() {
+             hideAllSections();
+             loginSection.style.display = 'flex';
+             window.location.hash = ''; // Limpiamos el hash en el login
+        }
+
+        function showWelcome(fromRouter = false) {
+            hideAllSections();
             welcomeSection.style.display = 'flex';
+            if (!fromRouter) window.location.hash = 'welcome';
         }
 
-        function showAptitudes() {
-            welcomeSection.style.display = 'none';
+        function showAptitudes(fromRouter = false) {
+            hideAllSections();
             studentSection.style.display = 'block';
-            conocimientosSection.style.display = 'none';
-            tutorialSection.style.display = 'none';
+            if (!fromRouter) window.location.hash = 'aptitudes';
         }
 
-        function showConocimientos() {
-            welcomeSection.style.display = 'none';
-            studentSection.style.display = 'none';
+        function showConocimientos(fromRouter = false) {
+            hideAllSections();
             conocimientosSection.style.display = 'block';
-            tutorialSection.style.display = 'none';
+            if (!fromRouter) window.location.hash = 'conocimientos';
         }
 
-        function showTutorial() {
-            welcomeSection.style.display = 'none';
-            studentSection.style.display = 'none';
-            conocimientosSection.style.display = 'none';
+        function showTutorial(fromRouter = false) {
+            hideAllSections();
             tutorialSection.style.display = 'block';
+            if (!fromRouter) window.location.hash = 'tutorial';
+        }
+
+        function showVideos(fromRouter = false) {
+            hideAllSections();
+            videosSection.style.display = 'block';
+            if (!fromRouter) window.location.hash = 'videos';
         }
 
         function logout() {
             signOut(auth).then(() => {
-                console.log("Sesión cerrada en Firebase.");
-                showLogin();
+                // El onAuthStateChanged se encargará de llamar a showLogin()
                 usernameInput.value = '';
                 passwordInput.value = '';
                 messageElement.textContent = '';
-            }).catch((error) => {
-                console.error("Error al cerrar sesión en Firebase:", error);
-            });
+            }).catch((error) => console.error("Error al cerrar sesión:", error));
         }
         
+        // Hacer las funciones accesibles globalmente
         window.checkCredentials = checkCredentials;
         window.logout = logout;
         window.showAptitudes = showAptitudes;
         window.showConocimientos = showConocimientos;
         window.showWelcome = showWelcome;
         window.showTutorial = showTutorial;
+        window.showVideos = showVideos;
     </script>
 </body>
 </html>
